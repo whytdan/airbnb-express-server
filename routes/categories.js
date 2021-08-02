@@ -1,9 +1,8 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const category_controller = require('../controllers/category');
 
-/* GET home page. */
-router.get('/', function (_, res) {
-  res.send('categories');
-});
+/* GET categories list. */
+router.get('/', category_controller.categories_list);
 
 module.exports = router;

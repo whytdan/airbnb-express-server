@@ -5,6 +5,8 @@ const logger = require('morgan');
 const cors = require('cors');
 
 const indexRouter = require('./routes/index');
+const homesRouter = require('./routes/homes');
+const categoriesRouter = require('./routes/categories');
 
 const app = express();
 
@@ -14,6 +16,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use('/', indexRouter);
+app.use('/homes', homesRouter);
+app.use('/categories', categoriesRouter);
 
 // enable cors
 app.use(

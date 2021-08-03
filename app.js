@@ -10,6 +10,13 @@ const categoriesRouter = require('./routes/categories');
 
 const app = express();
 
+// enable cors
+app.use(
+  cors({
+    origin: 'http://localhost:3000',
+    methods: ['GET', 'POST', 'DELETE', 'UPDATE', 'PUT', 'PATCH'],
+  })
+);
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -18,14 +25,6 @@ app.use(cookieParser());
 app.use('/', indexRouter);
 app.use('/homes', homesRouter);
 app.use('/categories', categoriesRouter);
-
-// enable cors
-app.use(
-  cors({
-    origin: 'http://localhost:3000',
-    methods: ['GET', 'POST', 'DELETE', 'UPDATE', 'PUT', 'PATCH'],
-  })
-);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

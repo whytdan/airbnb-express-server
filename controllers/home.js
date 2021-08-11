@@ -1,4 +1,4 @@
-const client = require('../utils/mongoSetup');
+const client = require('../utils/mongo-client-setup');
 
 require('dotenv').config();
 

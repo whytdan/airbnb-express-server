@@ -1,0 +1,40 @@
+version: '3'
+services:
+  mongodb:
+    restart: always
+    image: mongo
+    ports:
+      - 27017:27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=kerbal
+      - MONGO_INITDB_ROOT_PASSWORD=kerbal_space
+      - DB_NAME=$DB_NAME
+      - DB_USER=$DB_USER
+      - DB_PASSWORD=$DB_PASSWORD
+    volumes:
+      - ./docker-entrypoint-initdb.d/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+
+  app:
+    restart: always
+    build: .
+    ports:
+      - 8080:3000
+    environment:
+      - DB_NAME=$DB_NAME
+      - DB_USER=$DB_USER
+      - DB_PASSWORD=$DB_PASSWORD
+      - DB_PORT=$DB_PORT
+    depends_on:
+      - mongodb
+
+  mongo-express:
+    restart: always
+    image: mongo-express
+    ports:
+      - 8081:8081
+    environment:
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=kerbal
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=kerbal_space
+      - ME_CONFIG_MONGODB_SERVER=mongodb
+    depends_on:
+      - mongodb
